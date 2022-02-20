@@ -1,9 +1,11 @@
 from flask import Flask, jsonify, request, render_template
-import flask
-# from flask_cors import CORS
 from flask import session
 from flair.models import TextClassifier
 from flair.data import Sentence
+
+from models.model_factory import ModelFactory
+
+
 
 # creating instance of the class
 app = Flask(__name__, template_folder='templates')
@@ -45,7 +47,10 @@ def result():
     # input_text = request.form.values()
     # input_text = list(map(str, input_text))[0]
     input_text = request.json['input_text']
-    result = text_classifier(input_text)
+    model_type = request.json['model_type']
+
+    model = ModelFactory.get_model(model_type)
+    result = model.make_prediction(input_text)
     
     #return flask.render_template("result.html", result=result)
     return result
