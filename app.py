@@ -42,11 +42,13 @@ def text_classifier(input_text):
 @app.route('/result', methods = ['POST'])
 def result():
 
-    input_text = request.form.values()
-    input_text = list(map(str, input_text))[0]
+    # input_text = request.form.values()
+    # input_text = list(map(str, input_text))[0]
+    input_text = request.json['input_text']
     result = text_classifier(input_text)
     
-    return flask.render_template("result.html", result=result)
+    #return flask.render_template("result.html", result=result)
+    return result
 
 
 if __name__ == '__main__':
