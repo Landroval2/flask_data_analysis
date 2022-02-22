@@ -4,7 +4,7 @@ from flair.models import TextClassifier
 from flair.data import Sentence
 
 
-class ClassificationModel(Model):
+class Classification(Model):
     model = TextClassifier.load('sentiment')
 
     @classmethod
