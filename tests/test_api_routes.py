@@ -12,19 +12,26 @@ class ApiRoutesTest(unittest.TestCase):
         self.assertEquals(response.status, "200 OK")
 
     def make_predict(self, body):
-        # Make a prediction
+
         return self.test_app.post(url='/predict', json=body)
+
 
 class TestPredict(ApiRoutesTest):
 
-    def test_sentence_tagger(self):
+    def test_predict_route(self):
 
         json_body = {
             'input_text': 'George Washington went to Washington.',
             'model_type': 'tagger'}
 
-        with app.test_client() as c:
-            rv = c.post("/predict", json=json_body)
-            json_data = rv.get_json()
-            print(json_data)
-            assert rv.status_code == 200
+        response = self.test_app.post("/predict", json=json_body)
+        self.assert_route(response)
+    
+    def test_sequence_tagger_valid(self):
+
+        json_body = {
+            'input_text': 'George Washington went to Washington.',
+            'model_type': 'tagger'}
+
+        response = self.test_app.post("/predict", json=json_body)
+        

@@ -14,4 +14,4 @@ class ModelFactory():
             return SequenceTagger
 
         else:
-            pass
+            raise ValueError('Unknown model type')
